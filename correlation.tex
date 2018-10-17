@@ -1,0 +1,1162 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% MH update to correlation_20170306.tex in Bitbucket branch 20170928 
+%% VG updates pushed to BB by MH on 2018-02-07
+%% MH update to correlationVG2.tex included in folder valeriegares/20160526/correlation_20160522
+%% MH variant starting from  Y: _20151209
+\documentclass[twoside,a4paper,12pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%package%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath,amssymb,amstext,latexsym,amsfonts,graphicx,fancybox}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+\usepackage{amsthm,dsfont,ifthen,mathrsfs,amsfonts,shadethm, nicefrac,tabularx}
+\usepackage{amssymb,amsmath,amsthm,amscd}
+\usepackage{algorithm,algorithmic}
+\usepackage[top=3cm, bottom=3cm,left=2cm,right=2cm,headheight=14.5pt,showframe]{geometry}
+\usepackage{inputenc}       %Codage : UTF-8 (saisie des accents)
+\usepackage[T1]{fontenc}    %Codage de sortie (accents dans le pdf)
+\usepackage{xcolor}
+\usepackage{enumerate}  
+\usepackage{amsthm,dsfont,ifthen,mathrsfs,amsfonts,shadethm, nicefrac,tabularx}
+\usepackage{amssymb,amsmath,amsthm,amscd}
+\usepackage{algorithm,algorithmic}
+\usepackage{mathrsfs}    
+\usepackage[toc,page]{appendix} 
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{array,multirow}
+\usepackage{fancyhdr,fancybox,shadow}
+\usepackage[normalem]{ulem}
+\usepackage[colorlinks=true,linkcolor=black,citecolor=black,pdfhighlight=/O]{hyperref}
+\usepackage{lscape}
+\usepackage{natbib}
+\usepackage{tikz} 
+\usepackage{fancyhdr} 
+% MH adjust \headheight:
+\setlength{\headheight}{16pt} 
+\usepackage{cooltooltips}
+\usepackage{authblk}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead{}
+\fancyhead[C]{}
+\cfoot{}
+\lfoot{}
+\rfoot{}
+\fancyhead[LE]{Valerie Gares, Malcolm Hudson, Maurizio Manuguerra, Val Gebski}
+\fancyhead[RO]{\leftmark}
+\renewcommand{\headrulewidth}{1pt}
+\usepackage{lastpage}
+% usage: \cventry[spacing]{years}{degree/job title}{institution/employer}{localization}{optionnal: grade/...}{optional: comment/job description}
+\cfoot{\thepage\ of \pageref{LastPage}}
+\usepackage[width=.75\textwidth]{caption}
+\captionsetup{width=12cm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Track changes: sourceforge package trackchanges
+%\usepackage{fullpage}
+
+%\usepackage[finalnew]{../LatexPackage/trackchanges}
+%\usepackage[finalold]{../LatexPackage/trackchanges}
+%\usepackage[footnotes]{../LatexPackage/trackchanges}
+%\usepackage[inline]{../LatexPackage/trackchanges}
+%\usepackage[margins]{../LatexPackage/trackchanges}
+% \usepackage{trackchanges}
+%\usepackage[margins,movemargins]{trackchanges}
+%\usepackage[margins,adjustmargins]{trackchanges}
+
+%\addeditor{MH}
+%\addeditor{VG}
+%%%%%%%%%%%%% New commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% New commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\G}{\mathbb{G}}
+
+\newcommand{\M}{\mathbb{M}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\Hy}{{\mathcal{H}}}
+\DeclareMathOperator{\cov}{cov}
+\newcommand{\HYPO}[2]{
+\begin{cases}
+\Hy_0 &:~  #1, \\
+\Hy_1 &:~ #2.
+\end{cases}}
+\def\HR{\operatorname{HR}} 
+\def\MR{\operatorname{MR}} 
+\def\RD{\operatorname{RD}} 
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\VV}{\mathbb{V}}
+\newcommand{\Var}{\mathbb{V}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\renewcommand{\hat}{\widehat}
+\def\cov{\operatorname{Cov}} 
+\def\var{\operatorname{Var}}
+\def\corr{\operatorname{Corr}}
+\def\det{\operatorname{det}}
+\def\SD{\operatorname{SD}}
+\def\SE{\operatorname{SE}}
+\def\bias{\operatorname{bias}}
+\def\BCR{\operatorname{BCR}}
+\newcommand{\YY}{Y^{'} Y}
+\newcommand{\Ybar}{\bar{Y}}
+\newcommand{\XtX}{(X^\prime X)}
+\newcommand{\XtY}{X^\prime Y}
+\newcommand{\super}[2]{{#1}^{(#2)}}
+\newcommand{\Yimp}[1]{Y_{#1}^0}
+% \newcommand{\Ym}{Y^{(m)}}
+% \newcommand{\Ym1}{Y^{(m+1)}}
+% \newcommand{\Bm1}{B^{(m+1)}}
+% \newcommand{\Vm1}{V^{(m+1)}}
+\newcommand{\Eobs}{\EE^{\text{obs}}}
+\newcommand{\Eobsm}{\EE^{0}} %\text{obs},m
+\newcommand{\Eobso}{\EE^{\text{obs},0}}
+
+\newcommand{\V}{(Y-X B)^T (Y-X B)}
+\newcommand{\Vm}{(Y-X B^{(m)})^T (Y-X B^{(m)})}
+\newcommand{\Vhat}{(Y-X \hat{B})^T (Y-X \hat{B})}
+\def\VV{\operatorname{V}}
+\newcommand{\arhob}{\frac{a-\,\rho \, b}{\sqrt{1-\rho^2}}}
+\newcommand{\brhoa}{\frac{b-\,\rho \, a}{\sqrt{1-\rho^2}}}
+\newcommand{\ddet}{1-\rho^2}
+\newcommand{\sdet}{\sqrt{1-\rho^2}}
+\newcommand{\vertchar}[1]{\ooalign{#1\cr\hidewidth$|$\hidewi‌​dth}}
+\DeclareMathOperator{\tr}{tr} % bold font
+\DeclareMathOperator{\vvec}{vec} % bold font
+\DeclareMathOperator{\tensor}{\otimes} % bold font
+\newcommand{\dett}[1]{\begin{vmatrix}{#1}\end{vmatrix}}
+\newcommand{\del}{\partial}
+\theoremstyle{plain}
+%\newtheorem{criterion}{Criterion}
+\theoremstyle{definition}
+%\newtheorem{condition}[theorem]{Condition}
+\usepackage[]{graphicx}
+\chardef\bslash=`\\ % p. 424, TeXbook
+\newcommand{\ntt}{\normalfont\ttfamily}
+\newcommand{\cn}[1]{{\protect\ntt\bslash#1}}
+\newcommand{\pkg}[1]{{\protect\ntt#1}}
+\let\fn\pkg
+\let\env\pkg
+\let\opt\pkg
+\hfuzz1pc % Don't bother to report overfull boxes if overage is < 1pc
+\newcommand{\envert}[1]{\left\lvert#1\right\rvert}
+\let\abs=\envert
+
+\begin{document}
+%\DOIsuffix{bimj.DOIsuffix}
+\DOIsuffix{bimj.200100000}
+\Volume{52}
+\Issue{61}
+\Year{2010}
+\pagespan{1}{}
+\keywords{Bivariate censored regression; Competing risks; Correlation; Time-to-event analysis;   \\
+\noindent \hspace*{-4pc} %{\small\it (Up to five keywords are allowed and should be given in alphabetical order. Please capitalize the key
+%}\\
+\hspace*{-4pc} {\small\it words)}\\[1pc]
+\noindent\hspace*{-4.2pc} Supporting Information for this article is available from the author or on the WWW under\break \hspace*{-4pc} \underline{http://dx.doi.org/10.1022/bimj.XXXXXXX} (please delete if not
+applicable)
+}  %%% semicolon and fullpoint added here for keyword style
+
+\title[Correlated bivariate Normal competing risks ]{Correlated bivariate Normal competing risks: parametric censored regression }
+%% Information for the first author.
+\author[Val\'{e}rie Gar\`{e}s {\it{et al.}}]{Val\'{e}rie Gar\`{e}s\footnote{Corresponding author: {\sf{e-mail: valerie.gares@insa-rennes.fr}}, Phone: +332 23 23 89 48}\inst{,1}} 
+\address[\inst{1}]{Univ Rennes, INSA, CNRS, IRMAR - UMR 6625, 20 Avenue des Buttes de Coësmes CS 70839, 35708 Rennes cedex 7}
+%%%%    Information for the second author
+\author[]{Malcolm Hudson\inst{2,3}}
+\address[\inst{2}]{NHMRC Clinical Trials Centre | University of Sydney | Levels 4-6 Medical Foundation Building | 92-94 Parramatta Rd | Camperdown NSW 2050 | Australia}
+\address[\inst{3}]{Department of Statistics | Macquarie University | Balaclava Road | North Ryde | NSW | 2109 | Australia}
+%%%%    Information for the third author
+\author[]{Maurizio Manuguerra\inst{3} }
+\author[]{Val Gebski\inst{2} }
+
+%%%%    \dedicatory{This is a dedicatory.}
+\Receiveddate{zzz} \Reviseddate{zzz} \Accepteddate{zzz} 
+
+\begin{abstract}
+
+In problems with a time to event outcome, competing risks may arise when 
+subjects experience competing events which prevent the outcome of interest in 
+the study occurring. 
+Methods generalizing the logrank test for proportional hazards models are 
+commonly used to examine group differences account for the competing risks. 
+Knowledge of the level of correlation between the different risks can assist in 
+the understanding and interpretation of the statistical results of subsequent 
+analysis. 
+ We examine a bivariate normal censored (BNC) linear model using imputation to estimate the 
+correlation between times to two competing events
+for which the first observed precludes observing the other. 
+This approach allows us to impute the survival time for the censored outcome of 
+interest when censoring resulted from the occurrence of a competing event. 
+Our R-package bnc provides maximum penalised likelihood parameter estimation using an EM algorithm.
+ Including a covariate indicating treatment group  in the bnc linear model provides an 
+estimator of relative increase in survival for a treatment versus a control. 
+Using bnc, we study bias/variance properties of such MPL estimation. 
+We present simulation results for one-sample and two-sample survival comparisons of time to an event of interest, 
+with independent censoring and additional censoring by a correlated competing risk. 
+Key parameters, mean, hazard ratios, and correlation are estimated. 
+The methods were applied to a trial of head and neck cancer. 
+ This approach helps to guide both understanding and interpretation of other 
+standard methods for these problems. 
+\\
+\end{abstract}
+
+\noindent \textbf{Key-words:} Time-to-event analysis, competing risks, 
+correlation, bivariate censored regression, hazard ratio.\\
+
+
+
+%% maketitle must follow the abstract.
+\maketitle                   % Produces the title.
+
+%% If there is not enough space inside the running head
+%% for all authors including the title you may provide
+%% the leftmark in one of the following three forms:
+
+%% \renewcommand{\leftmark}
+%% {First Author: A Short Title}
+
+%% \renewcommand{\leftmark}
+%% {First Author and Second Author: A Short Title}
+
+%% \renewcommand{\leftmark}
+%% {First Author et al.: A Short Title}
+
+%% \tableofcontents  % Produces the table of contents.
+
+
+\section{Introduction}
+
+Over the past three decades there have been major methodological advances in 
+addressing time to event problems. 
+The logrank test, which tests the equality of survival distributions from 
+censored event time data, \citep{Mantel1959} and the proportional hazards model 
+are commonly used in the analysis of cancer data \citep{Cox1972}. 
+The accelerated failure time is a useful alternative to the proportional hazard 
+model in survival analysis \citep{Wei1992}. 
+Methods for competing risks data include cause-specific (CS) proportional hazard 
+models \citep{Prentice1978}. 
+Fine and Gray have provided a class of proportional subdistribution hazard (SD) 
+models commonly used to account for competing risks \citep{Gray1988,Fine1999}. 
+Both models can contribute to analysis and interpretation of survival data with 
+competing risks  \citep{Dignam2008,Dignam2012}.
+Both CS and SD hazard approaches generalize the logrank test and Cox partial 
+likelihood tests for a univariate survival outcome. 
+\\
+
+An important factor affecting the understanding and choice of time to event 
+analysis is the strength of the correlation between the different risks. 
+\emph{Our aim is to assess the effects of correlation between two competing 
+risks on the estimator of the ratio of the mean} times to event for a 
+treatment versus a control. \\
+
+
+The logarithm of the time to event may satisfy assumptions of normality as used 
+in the approach of Royston \citep{Royston2006}. 
+For a single survival outcome, a normal censored linear regression with failure 
+censored data using an iterative least square method is implemented by Schmee 
+\citep{Schmee1979}. 
+The Expectation-Maximization (EM) algorithm \citep{Dempster1977} reduces bias in 
+estimating error variance \citep{Aitkin1981}.
+For multivariate survival data, authors have proposed parametric, 
+semi-parametric and non-parametric estimation \citep{Hougaard}. 
+The parametric models permit extrapolation of long-term event probabilities, 
+which are of inherent interest and which cannot generally be identified from nonparametric and semiparametric models. 
+Moreover, parametric regression models are amenable to formal maximum likelihood (and Bayesian) inferences
+Parametric methods may be preceded by logarithmic transformation of the failure time.
+This provides an accelerated failure time (AFT) model, which simplifies interpretation 
+of regression models for cause-specific mean times to failure 
+over that provided in semi-parametric models of effects on the cumulative incidence function such as the model of \cite{Fine1999}.
+A parametric model for competing risks using the Gompertz (1825) distribution to parameterize the log baseline cumulative
+subdistribution hazard function is described in \citep{Jeong2007}.
+% not sure to fit in table 3 doesn't work better at each time...
+Alternatively, the Buckley-James method \citep{Buckley1979,Lin1992,Jin2006} 
+provides a semi-parametric model. The method is based on a EM algorithm and %non-parametric models using 
+linear rank statistics \citep{Louis1981}.
+The Buckley-James method and its extensions \citep{Lin1992} ignore the dependence 
+structure in the data and correlation in multivariate failure times.  
+Methods have been developed  to estimate the correlation of multivariate failure 
+times using multiple imputation \citep{Pan1999}. 
+This correlation is also considered in \citep{Jin2006}. 
+In developing methods for competing risks analysis, 
+we consider models for competing risks in which both observations and model form differs, 
+%\annote{univariate}{the last two sentences were about multivariate correlation models. 
+% What distinguishes our approach? \\
+% [VG] [33] and [19] non parametric models and in both case we observe for one subject 2 survival times [33] 
+% Bivariate survival data  in twin studies and studies of both eyes or ears of the same individual, correlation between the survival times, 
+% NOT THE SAME PROBLEM NOT THE SAME CORRELATION, [19] consider the correlation structure of multivariate failure times 
+% when a subject can potentially experience several types of event or failure (WE OBSERVE SEVERAL SURVIVAL TIME FOR ONE SUBJECT).} 
+in that %marginal univariate models are fitted to 
+data on each of the bivariate response times is not available for competing risks.
+Instead the first occuring event time of correlated competing risks is observed (together with event cause. \\
+
+There is well known non-identifiability for models which specify only marginals \cite{Crowder1991}. 
+Censored regression model (CRM) approaches using a specified parametric 
+distribution may avoid ill-posedness in the problem formulation.
+While the bivariate distribution assumed is not verifiable from observed data, 
+its specification allows us to assess 
+sensitivity of the estimator of treatment benefit to correlation. %the ratio of means. \\
+
+Our approach provides an EM algorithm for competing risks (generalising one for univariate survival  (\cite{Aitkin1981})) which provides a maximum penalised likelihood (MPL) solution. Complex calculations are evaluated in closed form using a lemma of Stein.
+
+An EM algorithm is used to iterate between imputation of moments of censored failure 
+times for which censoring was due to the occurrence of a competing event, loss 
+to follow up or termination of the study  (E-step)
+and maximum likelihood estimation (MLE) with imputed moments (M-step). 
+
+Including a covariate  indicating treatment group  in this BNC model 
+provides an estimator of $\MR$, the ratio of means, for a treatment versus a control. 
+
+Two strategies were used to impute bivariate survivals in the E step of the EM 
+algorithm. 
+Firstly, using  a prespecified correlation we investigate sensitivity of an  
+estimator of the mean ratio ($\MR$) to the correlation input. 
+Secondly, the correlation  may itself be estimated in the M-step. 
+
+Standard semi-parametric methods, 
+proportional cause-specific (CS) and sub-distribution (SD) hazard models) 
+used to assess treatment benefit are applied 
+and compared with the proposed parametric method. 
+\\
+
+
+In time to event problems in head and neck cancer, the problem of competing risk 
+is common. 
+A non-randomized study  documented prospectively a case series 
+of patients receiving surgery
+with histologically positive nodes in the neck or parotid \citep{OBrien1997} . 
+The trial compared a group of patients  receiving adjuvant radiotherapy (XRT) 
+with the remaining patients who were not assigned XRT. 
+The two competing risks appropriate to the study objective are "local regional 
+relapse only" or other cause event (distant relapse, intercurrent death, 
+\emph{etc}). 
+We compared the standard survival methods for competing risks with the method 
+described above.\\
+
+The paper is organized as follows. 
+In Section \ref{model}, we recall some useful background on survival analysis 
+with competing risk and introduce the BCR model. 
+In Section \ref{model}, we describe simulation studies 
+conducted to assess the performance of the BCR model:
+  to evaluate the performance of our EM algorithms in Section  \ref{simul1}; 
+  and
+  to assess the effect of the correlation 
+    on the estimation of relative increase in survival % under bivariate log-normal assumptions
+    and
+  to compare the quality of estimates using the different survival 
+    {models} depending on this correlation in  Section \ref{simul2} . 
+We applied this method in a head and neck cancer trial in Section  \ref{ex}. 
+A summary and research questions for future  work conclude the paper in Section \ref{summary}.
+
+\section{Censored linear models of survival}\label{model}
+
+\subsection{Notation}
+
+In this section, we establish notation and recall different survival 
+models.\\
+
+\subsubsection{Univariate survival analysis}
+Let $T$ be a non-negative random variable with cumulative distribution function 
+$F$, survival function $S=1-F$ and hazard function  $\lambda \, dt =dF/(1-F)$. 
+$T$ denotes the duration between the time origin and the time of occurrence of 
+some event of interest. 
+The survival $Y= \log T$ is assumed to be right-censored: we observe the event only if it occurs 
+before a specified time, i.e. only if  $Y < C$. 
+Censoring time $C$ %has survival function $S_C$ and 
+is assumed to be independent of $Y$. 
+{We} observe $n$ independent subjects; the {$j$-th} subject
+has survival and censoring times $Y_j$ and $C_j$ 
+respectively. 
+The observations consist of the $n$ couples
+$(y_j,\Delta_j), \quad {j=1\ldots n}$, where $y_j=\min(Y_j, C_j)$, $\Delta_j=\mathbb I\{Y_j\leq 
+C_j\}$ and $\mathbb I$ is the indicator function. 
+Cox proposed a proportional hazards (PH) model \citep{Cox1972} which relates the 
+hazard function at time $t$, $\lambda(t,X_j)$, and the covariates (row) vector 
+$X_j$ and  for the $j$-th subject, by:
+$$
+\lambda(t, \,X_j)=\lambda_{0}(t)\exp( X_j \beta),
+$$
+where $\lambda_{0}$ is the baseline hazard function and $\beta$ is an unknown 
+coefficient vector. 
+Alternatively, we may consider an AFT model in which:
+$$
+Y_j =X_j \beta+\epsilon_j,
+$$
+where $\beta$ is a vector of unknown regression parameters and 
+$(\epsilon_i)_{j=1,\ldots, n}$ are independent error terms with a common 
+distribution chosen bivariate-normal or otherwise. 
+\\
+
+\subsubsection{Competing risks}
+
+
+A competing risk is an event whose occurrence precludes the occurrence of the primary event of interest
+% an event that either hinders the observation of the event of interest or modifies the chance that this event occurs.
+As our interest is in time to occurrence of one specific type of event, %(without the intervention of a competing event), 
+all others events can be grouped together as a common event type; without loss of generality we assume K=2.
+It is convenient in our model to measure times on a log-scale,
+so we define $Y=(Y_1, Y_2)$ to be the logs of the latent times of events of type 1 and 2, 
+both subject to censoring at log-time $C$. 
+For the $j$-th subject, let:
+\begin{align*} % define delta
+\delta_j&=
+\left\{
+\begin{aligned}
+1&:~\text{if an event is observed before end of follow-up} \\ % event 1 -- the event of interest -- is first to occur
+0&:~\text{if no event occurs.}
+\end{aligned}
+\right.
+\end{align*}
+{Both} {event types} are subject to the same {independent} censoring,
+{but only the first event is observed}. 
+Therefore, we observe $(y_j,D_j=\Delta_j\delta_j)_{j=1\ldots n}$, with 
+{$y_j=\min(Y_{1j},Y_{2j},C_j)$,}
+$\Delta_j$ indicating absence of {independent} censoring. Here
+\begin{align*}
+D_j&=
+\left\{
+\begin{aligned}
+1&:~\text{if the event of interest is observed,} \\
+2&:~\text{if an event of a competing risk is observed,} \\
+0&:~\text{if no event is observed during follow-up}.\\
+\end{aligned}
+\right.
+\end{align*}
+
+For event cause 1, let the cumulative incidence function $F_1(t)=\PP(Y_1\leq t,\delta=1)$
+and the subdistribution hazard function 
+$\lambda_1(t)\,dt=dF_1(t)/[1-F_1(t)]$. 
+Fine and Gray proposed a proportional sub-distribution (SD) hazards model 
+\citep{FineGray1999} which specifies the sub-distribution hazard function {$\lambda_1(t,Z_j)$}  
+for the cause of interest %\change[MH]{$h_1(t,Z_i)$}
+%\note[MH]{Its *not* the CS hazard, its definition differs. I am adopting the notation in a recent book on CR by Geskus. Otherwise, you could write $\lambda_{1,SD}$ or similar} 
+of subject $j$, with covariates $X_j$, as:
+$$
+{\lambda}_1(t \, | \, X_j)=\lambda_{1}(t|0) \, \exp(X_j \beta_1),
+$$
+where $\lambda_{1}(t|0)$ is the baseline SD-hazard function and $\beta_1$ a vector of coefficients.
+%\change
+%{\subsection{Censored regression with bivariate normal competing risks}}
+\subsection{The BNC linear model: bivariate normal competing risks}
+
+In this section, we assume a bivariate normal distribution of survival 
+components to assess the correlation between two competing risks.
+Specifically, we assume that the vector of logarithms of the time to the event 
+of interest and to an event of another cause, $Y=(Y_1,Y_2)$, is bivariate normally 
+distributed with correlation $\rho$. 
+\\
+
+Again denote by $Y_1$  the logarithm of time to event 1 and by $Y_2$ the logarithm of 
+time to {event 2}. 
+Assume $Y=(Y_1,Y_2)$ follows a bivariate normal distribution with specified means and covariance matrix $\Sigma$, $2$x$2$,
+%\remove[MH]{with $\EE(Y_k)=\mu_k$, $\var(Y_k)=\sigma_k^2$, for $k=1,2$, }
+with $\corr(Y_1,Y_2)=\rho$. 
+Let $C$ denote the logarithm of the time of censoring.
+As before, let $y= \min(Y_1,Y_2, C)$.
+The observed data is a random sample consisting of $n$ pairs
+$(y_j,D_j)$, for ${j=1\ldots n}$,  where 
+$y_j=\min(Y_{1j},Y_{2j},C_j)$, and $D_j \in \{0,1,2\}$ {is defined above}. 
+\\
+% \remove{For the $j$-th subject and the event $j$, to relate} 
+The expected survival $\EE Y$  
+{depends on subject specific} covariates $X$ 
+{with $\EE Y = \mu= X B$, where $B =(\beta_1,\beta_2)$ is a matrix of}
+{cause-specific regression coefficients of dimension $p~\text{x}~2$}. 
+The BNC linear model specifies the means for subject $j$ as $(\mu_{1j},\mu_{2j}) =X_j B$.
+
+
+
+
+\subsection{Censoring status and Likelihood function}
+
+In this section we set notation for event and censoring status. 
+We then define 
+likelihood functions for competing risks data. %first-event and for full
+
+In competing risks data all observations are subject to censoring,
+not only by end of follow-up, but also by competing events.
+With an event of cause 1, $D_j=1$,   time to event 2 is censored; 
+i.e. $Y_{1j}=y_j$ is observed and $Y_{2j} > y_j$ is censored. 
+Similarly, when $D_j=2$  $Y_{2j}= y_j$ is observed and 
+$Y_{1j}> y_j$. 
+Finally, $D_i=0$  when times to both events are censored; 
+for observed censoring time $y_j$,  $Y_{ij}> y_j$ for $i=1,2$. 
+\\
+
+% The {likelihood} function for data  on time to first event ($Y_1$), with independent 
+% censoring by competing risk or end-of-study, is 
+% %\begin{footnotesize}
+% \begin{align}\label{lik1} % [MH]
+% L_1 &=&\prod_{j:\delta_j=1}f_{Y_1}(y_j) 
+% \prod_{j:\delta_j = 0 } P \{ Y_1 > y_j \},% \prod_{j:\D_i=0} S_{Y_1}(y_j),
+% \end{align}
+% %\end{footnotesize}
+% where (?) \ldots% $S_{Y_1(t)}$ denotes the survival function of the event cause of interest (cause 1).%, the probability time to first event exceeds $t$.
+
+The {likelihood function} for fully observed competing risks data observations 
+$(y_j, D_j; \; j=1,\ldots,n)$ is:
+%$M=\{y_j, \Delta_i \delta_i; j = 1, \ldots, n\}$  is written:
+{\small
+\begin{equation}\label{lik2}
+L_{y,D}(B, \Sigma) = \prod_{j: D_j=1} f_{Y_1}(y_j) \, F_{2|1}(y_j|y_j) %P \{ Y_2> y_j \,| Y_1=y_j \}
+    \prod_{j: D_j=2} f_{Y_2}(y_j) \, F_{1|2}(y_j|y_j) %P\{Y_1 \, | Y_2 = y_j\}
+    \prod_{j: D_j=0} F_{12}(y_j, y_j), %P \{ Y_1 > y_j, \, Y_2 > y_j \},
+\end{equation}
+where $F_{1|2}(a|b) =P\{Y_1 > a \,|\, {Y_2 = b\}}$, $F_{2|1}(a|b) =P\{Y_2 > a \,|\, {Y_1 = b\}}$ and $F_{12}(a,b)= {P\{Y_1>a,} \, {Y_2>b\},}$ %$S$ denotes a survival time, and $S(t,t)$ is the probability of (log-)times to events of both types exceeding $t$.
+with probabilities depending on the coefficient matrix $B$ and covariance matrix $\Sigma$ of the bivariate Normal distribution.
+}
+
+Let $\mu_1$ and $\mu_2$ be the columns for cause 1 and cause 2 of the matrix of expected values $\mu=X B$ of $Y=(Y_1,Y_2)$.  % $\EE (Y_{1j})=\mu_{1j}$ and $\EE Y_{2j} = \mu_{2j}$, 
+Define $z_{i}= (y -\mu_{i})/\sigma_i$,  %$\bigl(\begin{smallmatrix} \sigma_1^{-1}&0 \\ 0&d\sigma_2^{-1} \end{smallmatrix} \bigr)$
+with $ \sigma_i = \sqrt{\sigma_{ii}}$,
+for $i=1,2$.
+Then $(Y-\mu) W   \sim \text{BVN}(0, R)$ where the $2$x$2$ weight matrix $W$ is diagonal with entries $\sigma_1^{-1}, \sigma_2^{-1}$,
+and 
+% 
+% \[
+%   R= \begin{bmatrix}
+%   1 &\rho \\
+%   \rho & 1
+%  \end{bmatrix}
+% \]
+% or,
+$R= \bigl(\begin{smallmatrix} 1& \rho \\ \rho & 1 \end{smallmatrix} \bigr)$
+Thus, given the covariate matrix $X$, all likelihood terms may be expressed in terms of the standard bivariate normal distribution;
+the likelihood is a function of $\rho$ and values $z_1, z_2, D$ of the observed random sample.
+
+
+\subsubsection{Expectation Maximization algorithm}
+
+An EM algorithm {at each iteration imputes} missing data (censored data here), 
+{substituting} the expectations {of sufficient statistics} conditional on the observed data and the 
+current parameter estimates (E step). 
+The new parameter estimates are obtained from {these imputed} sufficient statistics as 
+though they had come from a complete sample (M step). 
+\\
+
+
+The EM algorithm for likelihood function of survival $Y_1$ %in equation \eqref{lik1} 
+not subject to competing risks is described in \cite{Lunn1998}. 
+For likelihood function for observation $(Y_1,Y_2)$ in equation \eqref{lik2}, 
+the parameters at each step $r$ consist of 
+$\theta_{(r)}= \left( B^{(r)}, \Sigma^{(r)} \right)$. %\left(\mu^{(r)}%(\mu_{1,(r)},\sigma_{1,(r)},\mu_{2,(r)},\sigma_{2,(r)}, \rho_{(r)})$ 
+The new estimate $B^{(r+1)}$ of $B$ %\mu_{1,(r+1)} \mu_1
+is obtained as $\hat{B}=\XtX^{-1}X^\prime Y$ with imputed $Y$.
+\remove[VG]{by replacing the} 
+For this estimation, when $D_j=2$, so that $Y_{j1}$ is censored by the event of cause 2 at $y_j$,  
+the censored observation $Y_{j1}$ is imputed by 
+$\EE(Y_1|Y_1>y_j,\,Y_2=y_j,\;\mu_j^{(r)},\Sigma^{(r)})$, 
+when $D_j=0$,  by 
+$\EE(Y_1|{Y_1>y_j,}\,{Y_2>y_j;}\; \mu_j^{(r)},\Sigma^{(r)})$, where $\mu=XB$. 
+A complete data sufficient statistic for the covariance matrix $\Sigma$
+is $V= (Y-X\hat{B})^{'} (Y-X\hat{B})=Y^\prime Q Y$ for known projection matrix $Q=I-X \XtX^{-1} X^\prime$.
+The EM update to $\Sigma$ therefore includes imputation of quadratic terms (squares and cross-products) in $(Y_1,Y_2)$.
+The new estimate %$\sigma_{1,(r+1)}$ of $\sigma_1$ 
+is obtained using the censored observation $y_j$ 
+by replacing linear terms as above and 
+%the censored $M_i^2$,  
+quadratic terms using appropriate conditional distributions.
+For $j \neq j^\prime$ the statistical independence of observations reduces calculations to imputation of linear statistics,
+but for a single observation $j$ complex conditional expectations must be evaluated.
+For example, when 
+$D_j=2$,  a quadratic term $Y_{j1}^2$ in the censored observation $Y_{j1}$ 
+is imputed using $\EE(Y_1^2|{Y_1>y_j,}\,{Y_2=y_j}; \; \mu_j^{(r)},\Sigma^{(r)} )$.
+Similarly, when $D_j=0$,  the same term is imputed as 
+$\EE(Y_1^2|{Y_1>y_j,}\,{Y_2>y_j;} \; \mu_j^{(r)},\Sigma^{(r)}))$. 
+%Similar methods give the estimates $\mu_{2,(r+1)}$ and $\sigma_{2,(r+1)}$. 
+%The new estimate $\rho_{(r+1)}$ of $\rho$ is obtained by replacing the censored 
+%$y_j$ and $y_j^2$ as above and 
+%the product $y_{1,i}y_{2,i}$,  
+When 
+$D_j=0$,  we require $\EE(Y_1 Y_2|{Y_1>y_j,}\,{Y_2>y_j;} \; \mu_j^{(r)},\Sigma^{(r)}))$. 
+We provide all required probabily results for the EM algorithm in a bivariate normal censored linear model in Appendix \ref{appendix:prob}.
+These results for the bivariate normal distribution appear to be new, and may prove useful in other contexts. 
+
+We stop the EM algorithm using the Euclidean distance between parameter 
+estimates at the previous and the current step of the algorithm 
+$\left\|\theta_{(r+1)}-\theta_{(r)}\right\|^2/\left\|\theta_{(r)}\right\|^2< 
+\epsilon$ where $\left\|\cdot\right\|^2$ denotes the usual Euclidian norm and 
+$\epsilon$, a positive tolerance for convergence. 
+
+Standard errors of the EM algorithm solution  \emph{can be} obtained using the DCM method of Jamshidian and Jennrich \cite{Jamshidian2000}.
+The score statistic used is derived from evaluations of the score function $Q(\theta,\tilde{\theta})=\EE[\log L(Y; \tilde{\mu},\tilde{\Sigma})| y, D, \mu, \Sigma]$, 
+which is accessible for computation using our probability results.
+
+Complementary details are reported in the Appendix.% \ref{annex}.
+
+\subsection{Mildly Penalize Likelihood}
+
+As the convergence can be to a boundary $\hat{\rho}_{\mbox{ML}} = +1$ or $-1$ and the  convergence can be very long, we use a mildly
+penalize likelihood (MPL) (\cite{Barnard2000,CHEN20091367}) which has  the form:
+$$
+L^p_{y,D}(B, \Sigma) = L_{y,D}(B, \Sigma) + p_n( \Sigma)
+$$
+where $p_n(\Sigma)$ is the penalty depending on $\Sigma$ and the
+sample size $n$.  We consider a family of Wishart (not inverse-Wishart) densities for the prior on
+$\Sigma$. The Wishart density function on $\Sigma$ with hyperparameters $\nu$ and $\Psi$ defined by:
+$$
+p_n( \Sigma)=\frac{|\Sigma|^{(\nu-d-1)/2}\exp(-1/2tr(\Psi^{-1}\Sigma)}{2^{\nu d /2}|\Psi|^{\mu/2}\Gamma_d(\mu/2)}
+$$
+where $\Gamma_d(\mu/2)}=\pi^{d(d-1)/4}\prod_{j=1}^d \Gamma(\nu/2 +(1-j)/2 $, $\nu$ is the degrees of freedom,
+and $\Psi$ is a scale matrix with $\EE[\Sigma]=\mu\Psi$.
+We then adjust the EM algorithm for this MPL. This ensures the convergence. Finally, as the convergence was still very slow, we use an accelerate EM (R package {\tt{turboEM}} (\cite{Bobb2014})). This algorithm is implemented  in a R package named {\tt{bnc}}.
+
+\section{Simulation studies } 
+\subsection{Performance of the EM algorithm in the BCR model}\label{simul1}
+
+In this section, we study the effect of changes in parameters on the performance of maximum likelihood (ML) estimators -- obtained using the EM algorithm -- of 
+the parameters $\theta=(\mu_{1},\sigma_{1}^2, \mu_{2},\sigma_{2}^2, \rho)$ in the BCR model. 
+We do not consider covariates. Performance criteria for all parameter estimates are bias and standard error in N=1000 simulations.\\
+
+The bias of an estimator $\hat{E}$ of $E$ is defined as: $\bias(\hat{E}) 
+=\EE(\hat{E})-E$. We show its estimate, using the average of the sampling distibution of $\EE(\hat{E})-E$.
+The notation $\SE(\hat{E})$ corresponds to the standard error of the estimator $\hat{E}$.
+This is the sample standard deviation of $\hat{E}$ in N=1000 simulations.
+%\note[MH]{An alternative is to calculate the true SD from the asymptotic variance Var($\hat{E}|E)$. 
+%As you know, this variance is that of the MLE and is obtained from the Fisher information matrix for BNC likelihood.}
+\\
+%Let the Fisher transformation of correlation coefficient $\rho$, $\rho^*=(1 / 2)\log\left((1+\rho)/(1-\rho)\right)$.
+
+\subsubsection{Simulation design.} 
+The latent survival times $(Y_1,Y_2)$ are bivariate normally 
+distributed with parameters $(\mu_{1},\sigma_{1}^2,\mu_{2},$ $\sigma_{2}^2,\rho)$. 
+We have chosen $\mu_1=0$ (so median time to the event of interest is 1 on the original scale), 
+$\sigma_1=1$, $\sigma_2=1$. 
+Here $\tau$ denotes the maximum length of follow-up and is chosen so that 
+a pre-specified proportion, $S_{Y_1}(\tau)$, of latent events of cause 1 were yet to occur. 
+$\epsilon$ is chosen to be $10^{-4}$ in EM algorithm. 
+\\
+
+We consider four simulation scenarios varying $\rho$, $\mu_{2}$, $n$ and 
+$S_{Y_1}(\tau)$. 
+\begin{enumerate}[label=(\roman*)]
+\item To investigate the effect of correlation on the bias and standard  errors,we consider  correlation $\rho \in \{-0.50, -0.25, 0, 0.25, 0.50\}$.
+\item  To investigate the effect of the censoring proportion, we select $\tau$ for values of $S_{(Y_1,Y_2)}(\tau)$ in $\{0, 0.2, 0.4\}$. In the particular cas where $\mu_1=\mu_2=0$ and $\rho=0$ $\tau$ in $\{+\infty, 1.25, 0.75\}$ ($\{+\infty, 3.49, 2.12\}$ on the original time scale) respectively). 
+\item To investigate the effect of sample size $n$, we consider $n \in \{50, 250, 1000\}$
+\item  To investigate the effect of the difference in means (Table 1d), we take $\mu_{2}$ 
+equal to $\{0, 0.25, 0.5, 1\}$ (from $1$ to $2.72$ on the original time scale)
+\end{enumerate}
+For each configuration of these parameters, $M=1000$ data sets are simulated.
+
+Firstly, in order to investigate the effect of correlation on the bias and standard 
+errors (refer Fig 1a), we consider  correlation $\rho \in \{-0.2, 0, 0.2, 0.4, 0.6, 
+0.8\}$, for $\mu_{2}=1$, $n=1000$ and $\tau$ such that $S_{Y_1}(\tau)=0.2$. 
+
+Secondly, to investigate the effect of the censoring proportion 
+we select $\tau$ for values of $S_{Y_1}(\tau)$ in $\{0, 0.2, 0.4\}$, 
+for fixed $\rho=0.2$, $n=1000$ and $\mu_{2}=1$. 
+With $\mu_1=\mu_2$ and $\rho=0.2$, the corresponding probabilities that first event occurs both before time $\tau$ and 
+before the second event  are 0.50, 0.47, 0.41, respectively. 
+Thirdly, to investigate the effect of sample size $n$ (refer Table 1c), we consider $n \in \{200, 400, 600, 800, 1000\}$, $\mu_{2}=1$, $\rho=0.2$ and  $S_{Y_1}(\tau)=0.2$
+
+Finally, to investigate the effect of the difference in means (Table 1d), we take $\mu_{2}$ 
+equal to $\{0.5, 0.75, 1, 1.5\}$, for $\rho=0.2$ and $S_{Y_1}(\tau)=0.2$. \\
+
+In the example below showing one simulation, we have chosen $n=1000$, 
+$S_{Y_1}(\tau)=0.2$, $\rho=0.25$ and $\mu_2=0$.\\
+
+\noindent \textit{Figure \ref{simuldist}}\\ % Fig.1
+\textit{Figure \ref{simulconv}}\\ % Fig 2
+
+Figure \ref{simuldist} provides the boxplot of the simulated data $M$ according 
+to the different values of $\Delta\delta$. 
+%Since both event types have identical marginal distributions, the upper two 
+%boxplots are very similar, with means near 0.5, below the  mean values, both 1%
+%, of the unselected survival times. 
+%This is a consequence of the \emph{smaller} of the event times being observed. 
+%Censoring  due to the end of the study was imposed at a fixed time, as observed 
+%in the lower boxplot.\\
+
+Figure \ref{simulconv} illustrates the convergence of means, variances, $\rho$ 
+and log likelihood using the BCR model. 
+%It shows good estimations of the means and variances but a flat likelihood  and 
+%poorly conditioned estimator of $\rho$. Small changes in data will have a strong 
+%influence on this estimate.\\
+
+Figure \ref{simuldistz} %Fig. 3
+displays the boxplot of $\hat{\rho}$ in the particular case when 
+$S_{(Y_1,Y_2)}(\tau)=0.2$, $\rho=0.25$ and $\mu_2=1$. 
+%The estimator has  bias close to $0.2$, 
+%however the variance is substantial. 
+%The majority of values are less than $0.2$ again showing an underestimation of 
+$\rho$.\\
+
+Figure \ref{simulest} provides plots of the mean and standard errors in simulations estimates of 
+$\rho$ as a function of each parameter, given $\mu_{2}=0$ and 
+$S_{(Y_1,Y_2)}(\tau)=0.2$, and confirms all the comments described above. 
+%We note a small and positive bias for negative values of $\rho$ and a negative 
+%and larger bias for positive values of $\rho$.\\
+
+
+\noindent \textit{Table \ref{simul3}} \\
+%\noindent \textit{Table \ref{simulf}} \\
+\textit{Figure \ref{simuldistz}}\\
+\textit{Figure \ref{simulest}} \\
+
+
+\subsubsection{Simulation Results}
+Table \ref{simul3} % Table 1
+shows ML estimates of  correlation $\rho$.  Estimates of the means and variances are presented in the suplementary materials.
+
+%Firstly (see suplementary materials), estimates of means and variances,  for fixed $\mu_1=\mu_2=0$, $S_{T_1}(\tau)=0.2$ and $n=1000$,
+%have a small 
+%positive bias as $\rho$ increases. This bias first increases then decreases with increasing $\rho$. The ML estimator of $\rho$ exhibits a small negative bias.
+%ML estimates of  $\rho$ show a negative bias. 
+%The bias is small when $\rho$ is less than $0.2$. 
+%The negative bias implies underestimation of the correlation. 
+%
+%Secondly (Table 1b), we note a slight decreasing bias of $\mu_1$, $\sigma_1$ and $\rho$, when the 
+%proportion of observations with first-event 1 increases,
+%as $\mu_2$ increases with $\mu_2\leq \mu_1$. 
+%Also note an slightly increasing bias of $\mu_2$ and $\sigma_2$. 
+%Corresponding results are obtained when $\mu_2\geq \mu_1$. 
+%
+%
+%Thirdly (Table 1c), estimates of means, variances  generally exhibit a  positive and increasing -- but small -- bias 
+%as $S_{Y_1}(\tau)$ (the proportion of events of type 1 beyond time $\tau$) increases.
+%
+%Finally (Table 1d),
+%the bias decreases as sample size $n$ increases,
+%for fixed $\rho=0.2$, $\mu_1=\mu_2=1$ and $S_{T_1}(\tau)=0.2$ .
+
+Secondly (Table 1b), we note a slight decreasing bias of $\mu_1$, $\sigma_1$ and $\rho$, when the 
+proportion of observations with first-event 1 increases,
+as $\mu_2$ increases with $\mu_2\leq \mu_1$. 
+Also note an slightly increasing bias of $\mu_2$ and $\sigma_2$. 
+Corresponding results are obtained when $\mu_2\geq \mu_1$. 
+
+Firstly (see suplementary materials), estimates of means and variances have a small  bias in each case.
+
+Thirdly (Table 1c), estimates of means, variances  generally exhibit a  positive and increasing -- but small -- bias 
+as $S_{Y_1}(\tau)$ (the proportion of events of type 1 beyond time $\tau$) increases.
+
+Secondly, the ML estimator of $\rho$, exhibit an increasing  bias as $S_{(Y_1,Y_2)}(\tau)$  increases, as $\mu_2$ increases and as $n$ decreases  (Table 1a, b and c).
+%Table \ref{simulf} shows that if one parameter at least is fixed in the model, 
+
+Thirdly, for $ n=1000$ (table 1c), the ML estimator of $\rho$ exhibits a small bias when $\rho\leq 0.25$ inferior to $0.10$. However the variance is substantial.  
+%We note a small and positive bias for negative values of $\rho$ and a negative and larger bias for positive values of $\rho$.
+
+Finally, the ML estimator of $\rho$ exhibits a negative bias when $\rho\geq 0.25$, . 
+The negative bias implies underestimation of the correlation.\\  For $ n=1000$, we note a small and positive bias for negative values of $\rho$ and a negative 
+and larger bias for positive values of $\rho$.\\
+
+%Figure \ref{simuldistz} %Fig. 3
+%displays the boxplot of $\hat{\rho}$ in the particular case when 
+%$S_{(Y_1,Y_2)}(\tau)=0.2$, $\rho=0.25$ and $\mu_2=0$. 
+%The estimator has  bias close to $0.25$, 
+%however the variance is substantial. 
+%The majority of values are less than $0.25$ again showing an underestimation of 
+%$\rho$.\\
+
+Figure \ref{simulest} provides plots of the mean in simulations estimates of 
+$\rho$ as a function of each parameter, given $\mu_{2}=0$ and 
+$S_{(Y_1,Y_2)}(\tau)=0.2$, and confirms all the comments described above. 
+We note a small and positive bias for negative values of $\rho$ and a negative 
+and larger bias for positive values of $\rho$.\\
+\\
+
+The model demonstrates good estimation of the means, variances and correlation. 
+However, it exhibits a small underestimation of the correlation. 
+Therefore a sensitivity analysis, fixing the parameter $\rho$ in the model, is 
+indicated. 
+
+ \subsubsection{Data with bivariate Weibull distibution}
+\noindent \textit{Simulation design.} $(Y_1,Y_2)$ follows a bivariate weibull 
+distribution using copulas functions with parameters 
+$(\alpha_{1},\lambda_{1},\alpha_{2},\lambda_{2},\theta)$ \citep{Escarela2003}. 
+$\theta$ denotes the Kendal correlation.
+We have chosen $n=1000$, $\alpha_1=1$, $\lambda_1=0.5$, $\alpha_{2}=1$ and 
+$\lambda_2=1$. 
+$\tau$ denotes the full study period and is chosen given $1-S_{Y_1}(\tau)$, the 
+proportion of events 1 at time point $\tau$. 
+Here, we define the censoring time $C^*=\tau$. 
+All subjects are followed until the end of the study. 
+$S_{Y_1}(\tau)=0$ means $100\%$ of events occur before $\tau$ and $0\%$ remain 
+unobserved at $\tau$.  
+\\
+
+\subsection{Effects of the correlation on estimation of relative increase in survival}\label{simul2}
+
+In this section, we use an EM algorithm in the BCR model including the 
+covariates, to estimate the mean ratio $\MR$ and study its 
+performance. 
+Varying the correlation allows us to assess its effect on estimation of relative 
+increase in survival using the BCR model, and
+by standard approaches using proportional CS and SD 
+{assumptions}.\\
+
+First, we specify 
+an AFT model $\mu_{ij}=\beta_{i,0}+\beta_{i,1}X_{j}$,  for $i=1,2$,
+with covariate $X_j$ indicating allocated treatment arm of the $j$-th subject. %and the event $i$. 
+For a lognormal distribution, $E(T)=\exp(\mu+\sigma^2/2) $, so the AFT assumption implies
+the ratio of mean survivals for cause $i$,  $\MR_i = E(T|X=1)/ E(T|X=0) =\exp \beta_{1,i}$.
+Here $1/\MR =\exp(-\beta_{1,i})$ corresponds in values to HR for proportional hazards models.
+To estimate $1/\MR$, after log-transforming data 
+we  impute bivariate survivals in the E step of the EM algorithm, 
+using the ML estimator of the correlation or alternatively with  
+prespecified correlation providing a sensitivity analysis. 
+%We study the $\RI$ estimators using standard methods. 
+\\
+
+The model describes a clinical trial with two arms; we further impose balanced design, equal numbers $n/2$ of patients in 
+treatment and control groups. 
+We study the estimated hazard ratio (HR) and \annote[VG]{relative increase ($RI=\MR^{-1}$)}{Do we keep this notation $RI=MR^{-1}$? Do we speak about relative increase or ratio of mean survivals?}  for the 
+event of interest  for a range of methods
+and their respective $95\%$ confidence interval (CI). 
+The \change[VG]{$\MR^{-1}$}{RI} ranges in the CI by a factor between $\exp(\pm 1.96 \mbox{SE}(\hat{\beta}_{1,1}))$ around the estimate. 
+The estimation methods included are regression coefficient estimates in the CS 
+hazard model (in which subjects who experienced the competing risk are 
+censored), 
+in the SD hazard model (in which subject who experienced the competing risk 
+remain in the risk set) 
+and in the BCR model using an EM algorithm. 
+
+We will also perform a sensitivity analysis imputing the censored survival times 
+of the outcome for different levels of correlation. 
+% We cannot compare Fine and Gray and Cox models themselves  because they do not  calculate the same function. 
+% Furthermore, these models gives an hazard ratio estimation and these generated data do not respect the assumption of proportional hazard ratio.
+% \cite{Kocherginsky2008,James2012}\\
+%The hazard ratio of log-normal distribution is represented by figure  when the 
+% relative increase is $\exp(0.5)$ and $\sigma=1$.}figure \ref{hazardnp}\\
+In what follows, all the random variables and relevant parameters for treatment 
+(respectively control) are indexed by \change[VG]{T}{$Z=1$} (respectively \change[VG]{C}{$Z=0$}), and for event 1 
+(respectively event 2) are indexed by 1 (respectively 2). 
+\\
+
+\subsubsection{Simulation design}
+
+
+
+
+For  $(Y_1^j,Y_2^j)$ is bivariate 
+normally distributed with parameters 
+$(\mu_{1}^j,\sigma_{1},\mu_{2}^j,\sigma_{2},\rho)$. 
+We fix $n=1000$ (i.e. $500$ subjects in each group). 
+In both arms,  
+%{Under treatment (and under placebo too) $\tau$ is chosen such as $S_{Y_{1}}^{T}(\tau)=0.2$} 
+censoring only occurs at end of study and, in the absence of competing risks, the 
+proportion of events of interest before this fixed period of follow-up $\tau$, is set so that $S_{Y_{1}}^{Z=0}(\tau)=0.2$. \remove[VG]{** Notation bad: C superscript for control, not C censor time **.}
+proportion of events of interest before this fixed period of follow-up $\tau$, is set so that $S_{Y_{1}}^{Z=0}(\tau)=0.2$. 
+All variances are chosen equal to 1 ($\sigma_{1}=\sigma_{2}=1$). 
+
+The mean survival time for event of interest (event 1) in the control group 
+is chosen equal to 1, $\EE (T | Z=0, \delta=1) =1=\mu_1^{Z=0}$ %($\mu^{C}_{1}=1$). 
+The mean for event 1 in the treatment group is then determined by the 
+mean ratio $E(T | Z=1,\delta=2) =\mu_1^{Z=0} +\log \MR_1=\mu_1^{Z=0} + \beta_{1,1}$, where  $1/\MR =\exp(-\beta_{1,1})$. 
+The competing event (event 2) has the same risk of  occurrence in both arms 
+{$\MR_{2}=1$}, $\mu^{Z=0}_{2}=\mu^{Z=1}_{2}=\mu_{2}$) and the latent survival times 
+of event 1 and 2  have the same correlation $\rho$ in both group. 
+In order to investigate the effect of the correlation and the {relative 
+increase}  on the {relative increase} estimation, we consider several simulation 
+scenarios obtained by combining various correlation $\rho \in \{-0.25, 0, 0.25, 0.5\}$,  
+$\MR_1^{-1}\in \{0.5, 1, 1.5\}$ and 
+$\mu_{2}=1$. 
+To investigate the effect of higher correlation, we choose $\rho=0.6$, 
+$\MR_{1}^{-1}=0.5$ and $\mu_{2}=1$. 
+To investigate the effect of the proportion of observed event 1 related of 
+observed event 2, i.e. 
+the difference in means between the two events, we consider $\mu_{2}\in 
+\{1,1.25,1.5\}$, $\rho \in \{0, 0.25\}$ and $\MR_{1}^{-1}=0.5$. 
+In each case, we impute bivariate survivals, in the E step of the EM algorithm, 
+using the ML estimator of the correlation and we conduct a sensitivity analysis 
+imputing bivariate survivals for prespecified correlations $\rho_{\BCR} \in \{0, 
+0.25, 0.5\}$ ($\rho_{\BCR} \in \{0, 0.1, 0.2, 0.3, 0.4, 0.5\}$ 
+when $\mu_{2}=1$, $\rho \in \{0, 0.2, 0.4\}$ and $\MR_{1}^{-1}=0.5$). 
+For each configuration of these parameters, $M=1000$ data sets are simulated.\\
+
+
+\noindent \textit{Table \ref{simulhr}}\\
+% I will calculate again the confidence interval as soos as I am in France. 
+% They are wrong: I did, over the $M$ simulations $\frac{1}{M}\sum_{i=1}^M \exp(\beta_i \pm 1.96 SD_i)$. 
+% The right computation is $ \exp(\frac{1}{M}\sum_{i=1}^M(\beta_i) \pm 1.96 \frac{1}{M}\sum_{i=1}^MSD_i)$}.
+
+% \noindent \textit{Table \ref{tableex2}}\\
+
+\noindent \textit{Figure \ref{simulhazard}}\\
+
+\subsubsection{Simulation results}
+We can note that the lognormal modelling implies a time dependant HR,
+so the proportional hazards assumption of CS and SD hazard models are violated 
+on these data. 
+The Fine and Gray method for a proportional SD hazard model should provide a time-averaged SD HR estimate; 
+similarly, a proportional CS hazard model will estimate a time-averaged CS HR \citep{Kalbfleisch1981}.
+From Table \ref{simulhr}, it appears that -- with either independent or correlated risks --
+the HR estimated by the FG method is closer to $\MR_{1}^{-1}$ than the HR estimated using a proportional CS hazard model, with close agreement when $\MR=1$.  
+The difference between the HR estimated by the SD and CS models and 
+$\MR_{1}^{-1}$ increases as the correlation $\rho$ increases. 
+{The CI of the CS and SD HR estimator does not include the true value $\MR_{1}^{-1}$ 
+when $\rho \geq 0.4$.} 
+% 
+The bias of $\hat{\MR}_{1}^{-1}$, estimated by the BCR model using the EM algorithm 
+for a given correlation $\rho_{\BCR}$
+is small. 
+In each situation, the bias of $\hat{\MR}_{1}^{-1}$, estimated by the BCR model are decreasing near correlation $\rho_{\BCR}$: 
+$\hat{\MR}_{1}^{-1}$ is below the true value $\MR_{1}^{-1}$ when $\rho_{\BCR}<\rho$, 
+above when $\rho_{\BCR}>\rho$, and almost equal when $\rho_{\BCR}=\rho$. 
+The CI obtained with different values $\rho_{\BCR}$ include the true value $\MR_{1}^{-1}$ unless $\rho_{\BCR}$ is far from the true value  $\rho$. 
+%
+The bias of $\hat{\MR}_{1}^{-1}$ estimated by the BCR model with $\rho_{\BCR}=\rho$ are {small} 
+and the confidence 
+intervals shortest among all the methods. For all models, as odds of events of type 1 being observed among uncensored observations increases, the bias of $\hat{\MR}_{1}$ increases.
+For all models, the true value $\MR_{1}$ influences the standard errors (SEs) of 
+the estimator of mean ratio; SE increases when $\MR_{1}^{-1}$ increases. 
+ 
+
+Figure \ref{simulhazard} displays the hazard ratio or the relative event 
+rate and its CI estimated using the different methods (SD hazard model, CS 
+hazard model, BNC model) 
+in the particular case $\mu_{2}=1$, $\rho \in \{0, 0.2, 0.4\}$ and 
+$\MR_{1}^{-1}=0.5$.
+
+\subsubsection{Findings}
+% \note[VG]{There was an old table to check the convergence when some parameters were 
+% fixed... do you want we introduce ?} \ref{simulhrf}  
+
+These simulations demonstrate the influence the correlation has on estimation of the relative increase and show the robustness of the SD hazard model under  correlated risks {$\rho\leq 0.2$}. 
+Sensitivity analysis shows the impact of the chosen correlation on the results. 
+Maximum likelihood estimation can lack accuracy.
+In such a circumstance, sensitivity analysis is indicated. 
+Comparing the different methods can help to determine an upper bound of the 
+potential correlation that can be used in prediction.
+Another method (see supplement) used to impute the censored times due 
+to loss to follow up or end of the study 
+did not shown improved estimation of the relative increase.
+
+
+
+
+\section{Example}\label{ex}
+  The study compared $n=143$ patients with Head and Neck cancer receiving 
+surgery. 
+  A treatment group,  $n=45$ patients, also received adjuvant radiotherapy 
+(XRT), with control group comprising the remaining $n=107$ patients (no XRT).
+  The outcome is time \add[MH]{from surgery} \note[VG]{I checked but it is not written clearly but i guess it is} to first event, the event of interest being local regional 
+relapse, other events comprising competing risks. 
+The events were recorded as "local regional relapse only" (Event 1, Relapse) or 
+"other causes" (Event 2, OC death). 
+Patients are censored due to loss to follow up or end of study. 
+
+We use the transformation $x^*:x\to\log(0.25+x)$ for the survival times to provide approximate normality
+while allowing for deaths at the time of treatment.\\
+  
+\noindent \textit{Figure \ref{exdist2}}\\
+
+\nocite{*}
+
+Figure \ref{exdist2} {provides} the box plots of the data.
+After the transformation $x^*:x\to\log(0.25+x)$, the survival time marginals 
+appear generally consistent with the {bivariate} normality assumption 
+{though} more extreme cancer survival times than expected occur for the {outcome 
+of interest}. 
+In both arms, event 1 more often precedes event 2. 
+In both arms and in both events, the variation in %\add{imputed?}\note[VG]{}{It is not imputed yet} 
+observed survival times is considerable, particularly for patients not receiving XRT. 
+Relapse, Event 1 occurred in 23 patients (3  in the irradiated group and 20 in 
+the non-irradiated group), OC death, event 2 occurred in 73 patients  
+(23 in the irradiated group and 50 in the non-irradiated group) and 57 patients 
+were censored  (16 in the irradiated group and 37 in the non-irradiated group). 
+\\
+
+\noindent \textit{Figure \ref{exsurv2}}\\
+  
+  Figure \ref{exsurv2} provides  plots of cumulative incidence functions in the 
+two arms for each of the event. 
+The plots suggest longer survival time to event 1 in the irradiated group but 
+little difference between treatment groups in OC deaths.
+\\
+  
+    
+ 
+ \noindent \textit{Table \ref{tableex2}}\\
+ 
+ Table \ref{tableex2} compares the $\HR$, its $95\%$ CI and p-value for the CS 
+and SD proportional hazards models. 
+The CI is similar  for the CS and SD hazard models. 
+. 
+In these two models, the treatment difference is not significant but near the level of statistical significance $\alpha=$0.05: $p=0.098$ for CS, $p=0.085$ for SD 
+model.
+Note the small estimates of hazard ratio of relapse cancer death 
+in XRT patientsrelative to patients receiving surgery alone. 
+\\
+
+
+The BCR model  using EM estimator of the correlation doesn't converge due to the 
+small numbers(n=3) of events in the irradiated group. 
+
+\noindent \textit{Table \ref{tables2}}\\
+\noindent \textit{Figure \ref{exsurvs2}}\\   
+\noindent \textit{Figure \ref{exhazard}}\\  
+
+In table \ref{tables2}, we therefore perform a sensitivity analysis imputing the censored 
+survival time of the outcome for different levels of correlation. 
+Figure \ref{exhazard} illustrates the $\MR$ and its CI estimated by the different 
+methods. 
+The treatment difference is significant for all values of $\rho_{\BCR}$ in favor 
+of the irradiated group. 
+
+The ML estimates of the relative increase increases as $\rho_{\BCR}$ increases 
+and is close to the SD estimate for $\rho_{\BCR}=0$. 
+The events may be not correlated. 
+
+Difficulties occur with small sample size and few events of interest.\\ 
+
+Figure \ref{exsurvs2} illustrates the cumulative incidence functions for 
+different specified correlations $\rho_{\BCR}$ with a truncation time at 20 
+years. 
+The prediction clearly show a difference in the survival estimates between the 
+two arms with a larger hazard for the non-irradiated group for different level 
+of correlation. 
+Additional results, in supplementary materials, show the ML estimates of the 
+relative increase can be sensitive to the choice of the transformation $x^*$, 
+where, for different transformations, the correlation level seems small.\\
+     
+In supplementary material, we have modified the data, adding some events, the 
+estimates suggest a moderate correlation.
+Code is available on request.
+
+\section{Conclusion}
+\label{summary}
+In this paper, we addressed the estimation of the correlation between two 
+competing risks and the impact on survival analysis. 
+We have provided an approach to help in the understanding and choice of the time 
+to event methods. 
+Moreover, our simulations have shown the BCR model gives good estimations of 
+means, {relative increase}, and variances but can underestimate  correlation. 
+This finding suggests the need to conduct sensitivity analysis. 
+In other work, our simulation has explored the influence of correlation  on 
+estimation of the hazard ratio by standard methods; 
+the Fine and Gray approach appears to remain robust under moderately correlated risks. 
+
+Sensitivity analysis shows the impact of the chosen correlation on the results. 
+Maximum 
+likelihood estimation estimation can lack accuracy.
+In such a circumstance, sensitivity analysis is indicated. 
+Comparing the different methods can help to determine an upper bound of the 
+potential correlation that can be used in prediction. This work is useful when 
+we want to compare correlations between different competing risks. 
+
+We have also applied our methodology to a real data set in the field of cancer 
+disease. This work has use in clinical interpretation of results.
+
+Finally, we provided 
+a method to assist estimation of correlation between risks which may be useful 
+in designing later studies.\\
+
+A limitation of this work is the bivariate normal distribution assumption. 
+Extending our work to semi parametric estimation where the distribution of the 
+error term is not specified would be valuable. 
+Such extension could employ the Buckley-James method or multiple imputation.\\
+   
+%We can note a competing risk imputation could be considered unrealistic but 
+%this estimation can be useful for prediction  as far as the sensitivity of the 
+%correlation and the need to choice the right correlation.\\
+% {We can appy this work on other distributions. 
+% We can use the copula function to generate correlated risks. 
+% We can use optimize by R function.} \cite{Hofert2012}
+
+Other models still deserve some attention in future work. 
+
+ The bivariate exponential model \cite{Marshall1967a} allows simultaneous causes 
+of death that might be appropriate to access of the correlation between 
+competing risks. 
+Investigating the maximum likelihood estimator performance and the effects of 
+the estimated correlation on the {relative increase} estimation also constitute 
+an interesting topic for future research.
+                                                                                 
+%\subsection{Second level heading}
+                                                                                 
+%This is the body text. Please note that cross-references in the body text should be shown as follows:
+%(Miller, 1900), (Miller and Baker, 1900) or if three or more authors (Miller {\it{et al}}., 1900)
+%\vspace*{12pt}
+                                                                                 
+%\noindent Bullet lists are not allowed. Always use (i), (ii), etc.
+%\vspace*{12pt}
+                                                                                 
+%\noindent Sentences should never start with a symbol.
+%\vspace*{12pt}
+                   
+%\noindent Names of software packages and website addresses should be written in {\tt{Courier new, i.e. Stata, the R package
+%MASS, http://www.biometrical-journal.com.}}
+
+\nocite{*}
+
+\begin{table}[htb]
+\begin{center}
+\caption{The caption of a table.}
+\begin{tabular}{lll}
+\hline
+Description 1 & Description 2 & Description 3\\
+\hline
+Row 1, Col 1 & Row 1, Col 2 & Row 1, Col 3\\
+Row 2, Col 1 & Row 2, Col 2 & Row 2, Col 3\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\begin{equation}
+\left({\theta^{0}_{i}}\atop{\theta^{1}_{i}}\right) \sim N(\theta,\Sigma),\quad {\mathrm{with}}\ 
+{{\theta}} = \left({\theta_{0}}\atop{\theta_{1}}\right)\ {\mathrm{and}}\ \Sigma =
+\left(\begin{array}{cc}
+\sigma^{2}_{0} & \rho\sigma_{0}\sigma_{1}\\
+\rho\sigma_{0}\sigma_{2} & \sigma^{2}_{1}
+\end{array}\right).
+\end{equation}
+
+\noindent This is the body text. Only number equations which are referred to in the text body. If equations
+are numbered, these should be numbered continuously throughout the text. Not section wise! Please
+carefully follow the rules for mathematical expressions in the ``Instructions to Authors''.
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[bb= 0 0 115 87]{empty.eps}
+\caption{The figure caption ($b_{2}b_{2}a^{n}a^{n}$).}
+\end{center}
+\end{figure}
+\begin{acknowledgement}
+An acknowledgement may be placed at the end of the article.
+\end{acknowledgement}
+\vspace*{1pc}
+
+\noindent {\bf{Conflict of Interest}}
+
+\noindent {\it{The authors have declared no conflict of interest. (or please state any conflicts of interest)}}
+
+ \newpage 
+ \appendix
+ %\section{Appendix}\label{annex}
+ 
+ \input{probabilitySteinIdentities.tex} 
+ \input{impute.tex}
+% \input{StdErrors.tex}
+% \input{appendixSteinProofs.tex}
+% \input{AppendixSimulations.tex}
+\end{document}
+
+
+
+%Please insert appendices before the references.
+
+\begin{thebibliography}{10}
+\bibitem[Bauer and Bauer(1994)Bauer, P. and Bauer, M.M.]{bib1}Bauer, P. and  Bauer, M. M. (1994). Testing equivalence simultaneously for location and  dispersion of two normally distributed populations.  \textit{Biometrical  Journal} \textbf{36}, 643--660.
+\bibitem[Farrington, C. P. and Andrews, N. (2003)]{bib2}Farrington, C.P. and Andrews, N. (2003). Outbreak detection:
+Application to infectious disease surveillance. In: Monitoring the Health of Populations (eds. R. Brookmeyer and D. F. Stroup), Oxford University Press, Oxford,\break 203--231.
+\bibitem[Rencher(1998)Rencher, A.C.]{bib3}Rencher, A. C. (1998).  \textit{Multivariate Statistical Inference and Applications}. Wiley, New  York. 
+\end{thebibliography}
+\newpage
+\phantom{aaaa}
+
+\nocite{*}
+
+\bibliographystyle{chicago} 
+%\bibliography{BNCM}
+\bibliography{~/repos/References/bib/BNCM}
+\end{document}
